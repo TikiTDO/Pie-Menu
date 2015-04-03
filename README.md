@@ -1,6 +1,6 @@
-# Simple configurable Pie Menu
+# Simple configurable Pie Menu Fork
 
-A fork of Nikesh/Pie-Menu, cleaned up a bit.
+A fork of [Nikesh/Pie-Menu](https://github.com/Nikesh/Pie-Menu), cleaned up and commented a bit more than the original.
 
 ## Requirements
 
