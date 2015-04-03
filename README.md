@@ -12,7 +12,7 @@ A fork of [Nikesh/Pie-Menu](https://github.com/Nikesh/Pie-Menu), cleaned up and 
 
   * Include `<script type="text/javascript" src="js/jquery.menu.js">` 
   * **EITHER** include `<link rel="stylesheet" href="css/piemenu.css" >` 
-  * **OR** modify and recompile piemenu.css from `less/piemenu.less`.
+  * **OR** modify and recompile `piemenu.css` from `less/piemenu.less`.
 
 2. Write the supporting HTML
 
