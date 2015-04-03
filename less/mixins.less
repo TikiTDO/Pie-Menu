@@ -213,6 +213,14 @@
           transition: @transition;
 }
 
+.transition-property(@transitionProperty) {
+  -webkit-transition-property: @transitionProperty;
+     -moz-transition-property: @transitionProperty;
+      -ms-transition-property: @transitionProperty;
+       -o-transition-property: @transitionProperty;
+          transition-property: @transitionProperty;
+}
+
 // Transformations
 .rotate(@degrees) {
   -webkit-transform: rotate(@degrees);

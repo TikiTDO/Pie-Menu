@@ -1,64 +1,89 @@
 (function( $ ) {
 
   $.fn.PieMenu = function(options) {
-	var angle,
-		delay_time,
-		ele_angle=[],
-		x_pos=[],
-		y_pos=[];
-	
-    var settings = $.extend( {
-      'starting_angel'   : '0',
-      'angel_difference' : '90',
-	  'radius':'200',
-	  'menu_element' : this.children('.menu_option').children(),
-	  'menu_button' : this.children('.menu_button'),
-    }, options);
-	
-	
-	angle = parseInt(settings.angel_difference)/(settings.menu_element.length-1);
-	delay_time = 1/(settings.menu_element.length-1);
+    return $(this).each(function () {
+      //// Initialization
+      // Default Settings
+      var settings = $.extend( {
+          starting_angel: '0',
+          angel_difference: '90',
+          radius: '200',
+          menu_elements: $(this).children('.menu_option').children(),
+          menu_button : $(this).children('.menu_button'),
+        }, options);
 
-	function setPosition(val){
-		$(settings.menu_element).each(function(i,ele){
-			$(ele).css({
-			'left' : (val==0)?0:y_pos[i],
-			'top' : (val==0)?0:-x_pos[i],
-			});
-		});
-	}
-	
-	$(settings.menu_button).unbind('click', clickHandler);	//remove event if exist
-	
-	var clickHandler = function() {
-		if($(this).parent().hasClass('active')){
-			setPosition(0);
-			$(this).parent().removeClass('active');
-			$(this).parent().addClass('inactive');
+      // Local Arguments
+      var angle_between_elements = parseInt(settings.angel_difference)/(settings.menu_elements.length-1),
+        menu_element_angle = [],
+        x_pos = [],
+        y_pos = [];
 
-		}else{
-			setPosition(1);
-			$(this).parent().addClass('active');
-			$(this).parent().removeClass('inactive');
-		}	
-		$(this).toggleClass("btn-rotate");
-	};
+      // Initial Values
+      settings.menu_elements.each(function(i, raw_element) {
+        var menu_element = $(raw_element);
 
-	$(settings.menu_button).bind('click', clickHandler);
+        // Calculate the button positions
+        menu_element_angle[i] = (parseInt(settings.starting_angel) + angle_between_elements * i) * Math.PI/180;
+        x_pos[i] = (parseInt(settings.radius) * Math.sin(menu_element_angle[i]));
+        y_pos[i] = (parseInt(settings.radius) * Math.cos(menu_element_angle[i]));
+         
+        // Calculatate 
+        var rotate_transform = 'rotate('+(90-menu_element_angle[i]*180/Math.PI)+'deg)';
+        menu_element.css({
+          '-webkit-transform': rotate_transform,
+          '-moz-transform': rotate_transform,
+          '-ms-transform': rotate_transform,
+          '-o-transform': rotate_transform,
+          'transform': rotate_transform
+        });
+      });
 
-	return settings.menu_element.each(function(i,ele){
-		ele_angle[i] = (parseInt(settings.starting_angel) + angle*(i))*Math.PI/180;
-		 x_pos[i] = (settings.radius * Math.sin(ele_angle[i]));
-         y_pos[i] = (settings.radius * Math.cos(ele_angle[i]));
-		 
-		 $(ele).css({
-			'-webkit-transform': 'rotate('+(90-ele_angle[i]*180/Math.PI)+'deg)',
-			   '-moz-transform': 'rotate('+(90-ele_angle[i]*180/Math.PI)+'deg)',
-			    '-ms-transform': 'rotate('+(90-ele_angle[i]*180/Math.PI)+'deg)',
-			     '-o-transform': 'rotate('+(90-ele_angle[i]*180/Math.PI)+'deg)',
-			    	'transform': 'rotate('+(90-ele_angle[i]*180/Math.PI)+'deg)',
-		});
-      })
-	  
+      //// Helper Functions
+      // Sets the menu position to either the origin, or the calculated position
+      function setPosition(origin){
+        $(settings.menu_elements).each(function(i, raw_element){
+          var menu_element = $(raw_element);
+
+          // Show the menu elements before opening them
+          if(!origin)
+            $(menu_element).css({display: 'block'});
+
+          // Animate the menu elements
+          menu_element.css({
+            left: (origin) ? 0 : y_pos[i],
+            top: (origin) ? 0 : -x_pos[i],
+            opacity: (origin) ? 0.0 : 1.0,
+          }).one('transitionEnd', function () {
+            // Hide the menu elementrs after closing them
+            if(origin) 
+              $(menu_element).css({display: 'none'});
+          });
+        });
+      }
+      
+      //// Menu Operation
+      var clickHandler = function() {
+        var button = $(this),
+            button_container = button.parent();
+
+
+        if(button_container.hasClass('active')) {
+          // Close the menu
+          setPosition(true);
+          button_container.removeClass('active').addClass('inactive');;
+        } else {
+          // Open the menu
+          setPosition(false);
+          button_container.removeClass('inactive').addClass('active');
+        }
+
+        // Rotate the button
+        $(this).toggleClass("btn-rotate");
+      };
+
+      // Ensure click handler is configured
+      $(settings.menu_button).unbind('click', clickHandler);  // I don't think this will work
+      $(settings.menu_button).bind('click', clickHandler);
+    });
   };
 })( jQuery );
