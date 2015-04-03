@@ -16,28 +16,28 @@ A fork of [Nikesh/Pie-Menu](https://github.com/Nikesh/Pie-Menu), cleaned up and 
 
 2. Write the supporting HTML
 
-```html
-  <div id='outer_container' class="outer_container" >
-		<a class="menu_button" href="#" title="Toggle"><span>Menu Toggle</span></a>
-		<ul class="menu_option">
-		  <li><a href="#"><span>Item</span></a></li>
-		  <li><a href="#"><span>Item</span></a></li>
-		  <li><a href="#"><span>Item</span></a></li>
-		  <li><a href="#"><span>Item</span></a></li>
-		  <li><a href="#"><span>Item</span></a></li>
-		</ul>
-	</div>
-```
+  ```html
+    <div id='outer_container' class="outer_container" >
+      <a class="menu_button" href="#" title="Toggle"><span>Menu Toggle</span></a>
+      <ul class="menu_option">
+        <li><a href="#"><span>Item</span></a></li>
+        <li><a href="#"><span>Item</span></a></li>
+        <li><a href="#"><span>Item</span></a></li>
+        <li><a href="#"><span>Item</span></a></li>
+        <li><a href="#"><span>Item</span></a></li>
+      </ul>
+    </div>
+  ```
 
 3. Initialize the script
 
-```javascript
-	$('#outer_container').PieMenu({
-		starting_angel: 0, // Starting Angle in degrees
-		angel_difference: 90, // Angle between menu elements
-		radius: 100 // Distance from button to where the menu elements end up
-	});	
-```
+  ```javascript
+    $('#outer_container').PieMenu({
+      starting_angel: 0, // Starting Angle in degrees
+      angel_difference: 90, // Angle between menu elements
+      radius: 100 // Distance from button to where the menu elements end up
+    }); 
+  ```
 
 # MIT License
 
