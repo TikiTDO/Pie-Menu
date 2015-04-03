@@ -10,11 +10,9 @@ A fork of Nikesh/Pie-Menu, cleaned up a bit.
 
 1. Include the library
 
-** Include `<script type="text/javascript" src="js/jquery.menu.js">` and `<link rel="stylesheet" href="css/piemenu.css" >` in the page.
-
-**OR**
-
-** Modify and recompile piemenu.css from `less/piemenu.less`.
+  * Include `<script type="text/javascript" src="js/jquery.menu.js">` 
+  * **EITHER** include `<link rel="stylesheet" href="css/piemenu.css" >` 
+  * **OR** modify and recompile piemenu.css from `less/piemenu.less`.
 
 2. Write the supporting HTML
 
